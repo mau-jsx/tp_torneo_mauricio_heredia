@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP Torneos - POO TypeScript</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 2.5em;
+      }
+
+      .console-output {
+        background: #1e1e1e;
+        color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "Monaco", "Menlo", "Consolas", monospace;
+        white-space: pre-wrap;
+        max-height: 500px;
+        overflow-y: auto;
+        margin-top: 20px;
+        border: 3px solid #333;
+      }
+
+      .info-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 20px 0;
+        border-left: 4px solid #007bff;
+      }
+
+      .button-group {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .feature-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+
+      .feature-item {
+        background: #e3f2fd;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .emoji {
+        font-size: 2em;
+        display: block;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🏆 TP Torneos - POO TypeScript 🏆</h1>
+
+      <div class="info-section">
+        <h2>📋 Sobre el Proyecto</h2>
+        <p>
+          Este proyecto implementa un sistema de gestión de torneos deportivos
+          aplicando los principios fundamentales de la
+          <strong>Programación Orientada a Objetos</strong> en TypeScript.
+        </p>
+      </div>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <span class="emoji">🎯</span>
+          <strong>Interfaces</strong><br />
+          IIdentificable, ICompetidor
+        </div>
+        <div class="feature-item">
+          <span class="emoji">🏗️</span>
+          <strong>Encapsulamiento</strong><br />
+          Propiedades privadas y getters
+        </div>
+        <div class="feature-item">
+          <span class="emoji">🧬</span>
+          <strong>Herencia</strong><br />
+          Deporte → Futbol/Basquet
+        </div>
+        <div class="feature-item">
+          <span class="emoji">🔄</span>
+          <strong>Polimorfismo</strong><br />
+          Métodos virtuales validar()
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn" onclick="ejecutarDemo()">
+          ▶️ Ejecutar Demostración
+        </button>
+        <button class="btn" onclick="limpiarConsola()">
+          🧹 Limpiar Consola
+        </button>
+      </div>
+
+      <div class="info-section">
+        <h3>🎮 Lo que hace la demostración:</h3>
+        <ul>
+          <li>✅ Crea jugadores de fútbol y básquet</li>
+          <li>✅ Forma equipos y valida cupos por deporte</li>
+          <li>✅ Demuestra polimorfismo con validaciones</li>
+          <li>✅ Programa y juega partidos en un torneo</li>
+          <li>✅ Maneja errores y validaciones</li>
+          <li>✅ Muestra resultados finales</li>
+        </ul>
+      </div>
+
+      <div id="console-output" class="console-output"></div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      // Capturar console.log para mostrar en la página
+      const originalConsoleLog = console.log;
+      const originalConsoleError = console.error;
+      const consoleOutput = document.getElementById("console-output");
+
+      function addToConsole(message, type = "log") {
+        const timestamp = new Date().toLocaleTimeString();
+        const color = type === "error" ? "#ff6b6b" : "#ffffff";
+        consoleOutput.innerHTML += `<span style="color: ${color}">[${timestamp}] ${message}</span>\n`;
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+      }
+
+      console.log = function (...args) {
+        originalConsoleLog.apply(console, args);
+        addToConsole(args.join(" "), "log");
+      };
+
+      console.error = function (...args) {
+        originalConsoleError.apply(console, args);
+        addToConsole(args.join(" "), "error");
+      };
+
+      async function ejecutarDemo() {
+        limpiarConsola();
+        console.log("🚀 Iniciando demostración del sistema de torneos...\n");
+
+        try {
+          // Importar y ejecutar el main
+          const mainModule = await import("/src/main.ts");
+          console.log("\n✨ Demostración completada exitosamente!");
+        } catch (error) {
+          console.error("💥 Error durante la ejecución:", error);
+        }
+      }
+
+      function limpiarConsola() {
+        consoleOutput.innerHTML = "";
+      }
+
+      // Mostrar mensaje inicial
+      console.log("👋 ¡Bienvenido al sistema de torneos!");
+      console.log(
+        '📖 Haz clic en "Ejecutar Demostración" para ver el proyecto en acción.'
+      );
+      console.log("");
+    </script>
+  </body>
+</html>

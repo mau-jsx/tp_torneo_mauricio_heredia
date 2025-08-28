@@ -1,1 +1,0 @@
-# tp_torneo_mauricio_heredia
